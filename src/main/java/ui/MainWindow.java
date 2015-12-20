@@ -24,6 +24,10 @@ public class MainWindow extends JFrame{
 
     /** Скорость по умолчанию. */
     private static final int DEFAULT_SPEED = 50;
+    /**
+     * Игровое поле.
+     */
+    private GameField gameField;
 
     /** Ссылка на окно настроек. */
   //  private OptionsWindow optionsWindow;
@@ -40,11 +44,6 @@ public class MainWindow extends JFrame{
         menuBar = new JMenuBar();
         menuBar.add(new Menu(gameController));
         this.setJMenuBar(menuBar);
-
-//        LineController lineController = new LineController(this, runningPanel);
-//        lineController.initValues(DEFAULT_STRING, DEFAULT_LINE_LENGTH, DEFAULT_SPEED);
-//        lineController.startLineThread();
-//        optionsWindow = new OptionsWindow(lineController);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Игра в жизнь");
         pack();
@@ -58,6 +57,8 @@ public class MainWindow extends JFrame{
      */
     private void initComponents() {
         getContentPane().setLayout(new FlowLayout());
+        gameField = new GameField(DEFAULT_COLOR);
+        getContentPane().add(gameField);
 //        runningPanel = new RunningPanel(DEFAULT_COLOR);
 //        getContentPane().add(runningPanel);
 //        JPanel buttonPanel = new JPanel(new FlowLayout());
