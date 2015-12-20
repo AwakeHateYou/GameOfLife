@@ -1,5 +1,6 @@
 package ui;
 
+import controller.GameController;
 import javafx.scene.layout.Pane;
 
 import javax.swing.*;
@@ -9,15 +10,14 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class SettingsWindow extends JFrame{
-    //JLabel sizeNLabel = new JLabel("Egor");
     JSpinner sizeN, sizeM, percentageLiving, updateTimer;
     JButton accept;
-    public SettingsWindow(){
+    public SettingsWindow(GameController gameController){
         setTitle("Настройки");
         setSize(260, 180);
         getContentPane().setLayout(new FlowLayout()); //строк и столбцов
         addComponentsToPane(getContentPane());
-        accept.addActionListener(e -> {});
+        accept.addActionListener(e -> setGameSettings(gameController));
         setResizable(false);
     }
     private void addComponentsToPane(Container pane){
@@ -36,7 +36,11 @@ public class SettingsWindow extends JFrame{
         add(updatePanel);
         add(accept = new JButton("Принять"));
     }
-    private void transferToModel(){
-
+    private void setGameSettings(GameController gameController){
+        //System.out.println(sizeN.getValue());
+        gameController.getGameOfLife().setWidth(Integer.parseInt(sizeN.getValue().toString()));
+        gameController.getGameOfLife().setHight(Integer.parseInt(sizeM.getValue().toString()));
+        gameController.getGameOfLife().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
+        gameController.getGameOfLife().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
     }
 }

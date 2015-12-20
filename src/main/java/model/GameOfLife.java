@@ -23,4 +23,7 @@ public class GameOfLife {
     }
 
     private double percentageLiving;
+    public GameOfLife(){
+
+    }
 }

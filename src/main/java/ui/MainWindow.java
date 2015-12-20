@@ -1,5 +1,8 @@
 package ui;
 
+import controller.GameController;
+import model.GameOfLife;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,9 +36,11 @@ public class MainWindow extends JFrame{
      */
     public MainWindow() {
         initComponents();
+        GameController gameController = new GameController();
         menuBar = new JMenuBar();
-        menuBar.add(new Menu());
+        menuBar.add(new Menu(gameController));
         this.setJMenuBar(menuBar);
+
 //        LineController lineController = new LineController(this, runningPanel);
 //        lineController.initValues(DEFAULT_STRING, DEFAULT_LINE_LENGTH, DEFAULT_SPEED);
 //        lineController.startLineThread();
