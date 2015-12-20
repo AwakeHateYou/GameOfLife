@@ -18,6 +18,7 @@ public class Menu extends JMenu {
         settings = new JMenuItem("Настройки");
         aboutProgramm = new JMenuItem("О программе");
         settings.addActionListener(e -> {showSettingsWindow();});
+        aboutProgramm.addActionListener(e -> {new JOptionPane().showMessageDialog(this, "Hello!", "About program", JOptionPane.PLAIN_MESSAGE);});
     }
     private void showSettingsWindow(){
         settingsWindow = new SettingsWindow();

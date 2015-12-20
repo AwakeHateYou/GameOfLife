@@ -41,7 +41,7 @@ public class MainWindow extends JFrame{
 //        lineController.startLineThread();
 //        optionsWindow = new OptionsWindow(lineController);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Бегущая строка");
+        setTitle("Игра в жизнь");
         pack();
         resize(DEFAULT_LINE_LENGTH);
         setResizable(false);
