@@ -17,6 +17,7 @@ public class SettingsWindow extends JFrame{
         setSize(260, 180);
         getContentPane().setLayout(new FlowLayout()); //строк и столбцов
         addComponentsToPane(getContentPane());
+        accept.addActionListener(e -> {});
         setResizable(false);
     }
     private void addComponentsToPane(Container pane){
@@ -34,6 +35,8 @@ public class SettingsWindow extends JFrame{
         updatePanel.add(updateTimer = new JSpinner());
         add(updatePanel);
         add(accept = new JButton("Принять"));
+    }
+    private void transferToModel(){
 
     }
 }
