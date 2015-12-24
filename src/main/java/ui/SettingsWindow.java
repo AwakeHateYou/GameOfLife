@@ -1,7 +1,6 @@
 package ui;
 
 import controller.GameController;
-import javafx.scene.layout.Pane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +38,7 @@ public class SettingsWindow extends JFrame{
     private void setGameSettings(GameController gameController){
         //System.out.println(sizeN.getValue());
         gameController.getGameOfLife().setWidth(Integer.parseInt(sizeN.getValue().toString()));
-        gameController.getGameOfLife().setHight(Integer.parseInt(sizeM.getValue().toString()));
+        gameController.getGameOfLife().setHeight(Integer.parseInt(sizeM.getValue().toString()));
         gameController.getGameOfLife().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
         gameController.getGameOfLife().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
     }
