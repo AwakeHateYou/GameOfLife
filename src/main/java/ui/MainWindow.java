@@ -1,7 +1,6 @@
 package ui;
 
 import controller.GameController;
-import model.GameOfLife;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,20 +9,9 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class MainWindow extends JFrame{
-    /** Высота одного символа. */
-    private static final int SYMBOL_HEIGHT = 80;
+
     JMenuBar menuBar;
-    /** Строка по умолчанию. */
-    private static final String DEFAULT_STRING = "привет мир ";
 
-    /** Длина строки по умолчанию. */
-    private static final int DEFAULT_LINE_LENGTH = 5;
-
-    /** Цвет по умолчанию. */
-    private static final Color DEFAULT_COLOR = Color.RED;
-
-    /** Скорость по умолчанию. */
-    private static final int DEFAULT_SPEED = 50;
     /**
      * Игровое поле.
      */
@@ -47,7 +35,7 @@ public class MainWindow extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Игра в жизнь");
         pack();
-        resize(DEFAULT_LINE_LENGTH);
+        setSize(300, 400);
         setResizable(false);
         setVisible(true);
     }
@@ -57,7 +45,7 @@ public class MainWindow extends JFrame{
      */
     private void initComponents() {
         getContentPane().setLayout(new FlowLayout());
-        gameField = new GameField(DEFAULT_COLOR);
+        gameField = new GameField();
         getContentPane().add(gameField);
 //        runningPanel = new RunningPanel(DEFAULT_COLOR);
 //        getContentPane().add(runningPanel);
@@ -72,12 +60,12 @@ public class MainWindow extends JFrame{
      * Изменяет размер главного окна.
      * @param length длина строки.
      */
-    public void resize(int length) {
-        Insets insets = getInsets();
-        setSize(new Dimension(
-                SYMBOL_HEIGHT * length + insets.left + insets.right,
-                SYMBOL_HEIGHT * 2 + insets.bottom + insets.top));
-    }
+//    public void resize(int length) {
+//        Insets insets = getInsets();
+//        setSize(new Dimension(
+//                SYMBOL_HEIGHT * length + insets.left + insets.right,
+//                SYMBOL_HEIGHT * 2 + insets.bottom + insets.top));
+//    }
 
     /**
      * Точка входа в программу.

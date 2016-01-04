@@ -1,17 +1,17 @@
 package controller;
 
-import model.GameOfLife;
+import model.GameOfLifeModel;
 
 /**
  * Created by etere on 20.12.2015.
  */
 public class GameController {
-    public GameOfLife getGameOfLife() {
-        return gameOfLife;
+    public GameOfLifeModel getGameOfLifeModel() {
+        return gameOfLifeModel;
     }
 
-    private GameOfLife gameOfLife;
+    private GameOfLifeModel gameOfLifeModel;
     public GameController(){
-        gameOfLife = new GameOfLife();
+        gameOfLifeModel = new GameOfLifeModel(700, 300);
     }
 }

@@ -9,21 +9,23 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class SettingsWindow extends JFrame{
-    JSpinner sizeN, sizeM, percentageLiving, updateTimer;
+    JSpinner width, height, percentageLiving, updateTimer;
     JButton accept;
     public SettingsWindow(GameController gameController){
         setTitle("Настройки");
         setSize(260, 180);
         getContentPane().setLayout(new FlowLayout()); //строк и столбцов
-        addComponentsToPane(getContentPane());
+        addComponentsToPane(getContentPane(), gameController);
         accept.addActionListener(e -> setGameSettings(gameController));
         setResizable(false);
     }
-    private void addComponentsToPane(Container pane){
+    private void addComponentsToPane(Container pane, GameController gameController ){
         JPanel sizePanel = new JPanel();
         sizePanel.add(new JLabel("Размеры поля: "));
-        sizePanel.add(sizeN = new JSpinner());
-        sizePanel.add(sizeM = new JSpinner());
+        sizePanel.add(width = new JSpinner());
+        width.setValue(gameController.getGameOfLifeModel().getWidth());
+        sizePanel.add(height = new JSpinner());
+        height.setValue(gameController.getGameOfLifeModel().getHeight());
         pane.add(sizePanel);
         JPanel livingPanel = new JPanel();
         livingPanel.add(new JLabel("Процент живых клеток: "));
@@ -36,10 +38,9 @@ public class SettingsWindow extends JFrame{
         add(accept = new JButton("Принять"));
     }
     private void setGameSettings(GameController gameController){
-        //System.out.println(sizeN.getValue());
-        gameController.getGameOfLife().setWidth(Integer.parseInt(sizeN.getValue().toString()));
-        gameController.getGameOfLife().setHeight(Integer.parseInt(sizeM.getValue().toString()));
-        gameController.getGameOfLife().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
-        gameController.getGameOfLife().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
+        gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
+        gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
+        gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
+        gameController.getGameOfLifeModel().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
     }
 }
