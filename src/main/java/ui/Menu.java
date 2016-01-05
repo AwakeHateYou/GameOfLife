@@ -32,8 +32,6 @@ public class Menu extends JMenu {
         settingsWindow.setVisible(true);
     }
     private void startGame(){
-        System.out.println(gameController.getGameOfLifeModel().countPercLiveStart());
-        gameController.getGameOfLifeModel().randFieldByPer();
         if(gameController.getGameField().isSimulating()){
             gameController.getGameField().stopSimulation();
             start.setText("Запустить");
