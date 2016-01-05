@@ -32,7 +32,7 @@ public class Menu extends JMenu {
         settingsWindow.setVisible(true);
     }
     private void startGame(){
-        //gameController.getGameOfLifeModel().randByPerc();
+        gameController.getGameOfLifeModel().randByPerc();
         if(gameController.getGameField().isSimulating()){
             gameController.getGameField().stopSimulation();
             start.setText("Запустить");

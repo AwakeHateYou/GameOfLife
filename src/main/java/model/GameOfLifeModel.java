@@ -91,19 +91,17 @@ public class GameOfLifeModel {
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
     }
     public void randByPerc() {
-        for (int i = 0; i < (int)(mainField.length * width * percentageLiving/100); i++) {
+        //System.out.println((height-1) * (width-1) * percentageLiving/100);
+        for (int i = 0; i < (int)((height-1) * (width-1) * percentageLiving/100); i++) {
             Random r = new Random();
-            int axis = r.nextInt(width);
-            int ordinate = r.nextInt(height);
-            System.out.println(axis);
-            System.out.println(ordinate);
-            while (mainField[axis + ordinate*height] == 1) {
-
-                axis = r.nextInt(mainField.length);
-                ordinate = r.nextInt(width);
+            int axis = r.nextInt(height - 1);
+            int ordinate = r.nextInt(width - 1);
+            while (mainField[axis + ordinate*(height-1)] == 1) {
+                axis = r.nextInt(height-1);
+                ordinate = r.nextInt(width-1);
             }
 
-            mainField[axis + ordinate * width] = 1;
+            mainField[axis + ordinate * (height-1)] = 1;
         }
     }
     public void simulate() {
