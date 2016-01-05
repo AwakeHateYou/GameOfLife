@@ -36,8 +36,6 @@ public class MainWindow extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Игра в жизнь");
         pack();
-//        setSize(300, 400);
-//        setResizable(false);
         setVisible(true);
     }
 
@@ -50,13 +48,6 @@ public class MainWindow extends JFrame{
         gameController = new GameController(gameField);
         gameField.initialize(gameController.getGameOfLifeModel());
         getContentPane().add(gameField);
-//        runningPanel = new RunningPanel(DEFAULT_COLOR);
-//        getContentPane().add(runningPanel);
-//        JPanel buttonPanel = new JPanel(new FlowLayout());
-//        JButton btnOptions = new JButton("Настройки");
-//        btnOptions.addActionListener(e -> optionsWindow.setVisible(true));
-//        buttonPanel.add(btnOptions);
-//        getContentPane().add(buttonPanel);
     }
 
     /**

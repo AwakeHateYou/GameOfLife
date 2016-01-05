@@ -35,12 +35,30 @@ public class GameOfLifeModel {
         this.reasonLive = reasonLive;
     }
 
-    public void setReasonDie(byte reasonDie) {
-        this.reasonDie = reasonDie;
+    public void setReasonDieFor(byte reasonDieFor) {
+        this.reasonDieFor = reasonDieFor;
     }
 
     private byte reasonLive = 3;
-    private byte reasonDie = 2;
+
+    public byte getReasonDieTo() {
+        return reasonDieTo;
+    }
+
+    public byte getReasonDieFor() {
+        return reasonDieFor;
+    }
+
+    public byte getReasonLive() {
+        return reasonLive;
+    }
+
+    public double getPercentageLiving() {
+        return percentageLiving;
+    }
+
+    private byte reasonDieFor = 2;
+    private byte reasonDieTo = 2;
     private double percentageLiving;
 
     public byte[] getMainField() {
@@ -72,19 +90,18 @@ public class GameOfLifeModel {
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
     }
-    public double countLiveStart(){
-        double count = 0;
-        for (int i = 0; i < getMainField().length; i++ ){
-            if (getMainField()[i] == 1){
-                count++;
+    public void randByPerc(double percents) {
+        for (int i = 0; i < (int)(mainField.length * width * percents); i++) {
+            Random r = new Random();
+            int axis = r.nextInt(mainField.length);
+            int ordinate = r.nextInt(width);
+
+            while (mainField[axis + ordinate*height] == 1) {
+                axis = r.nextInt(mainField.length);
+                ordinate = r.nextInt(width);
             }
-        }
-        return (count / getMainField().length)*100;
-    }
-    public void randFieldByPer(){
-        Random random = new Random();
-        for (int i = 0; i < getMainField().length; i++ ){
-            getMainField()[i] = ((byte)random.nextInt(3-1));
+
+            mainField[axis + ordinate * height] = 1;
         }
     }
     public void simulate() {
@@ -140,7 +157,7 @@ public class GameOfLifeModel {
 //        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
 //    }
     private byte simulateCell(byte self, byte neighbors){
-        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : neighbors < reasonDie ? 0 : 1);
+        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : neighbors < reasonDieFor ? 0 : 1);
     }
     //
     /**

@@ -9,11 +9,11 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class SettingsWindow extends JFrame{
-    JSpinner width, height, percentageLiving, updateTimer, reasonLive, reasonDie;
+    JSpinner width, height, percentageLiving, updateTimer, reasonLive, reasonDieFrom, reasonDieTo;
     JButton accept;
     public SettingsWindow(GameController gameController){
         setTitle("Настройки");
-        setSize(260, 250);
+        setSize(260, 300);
         getContentPane().setLayout(new FlowLayout()); //строк и столбцов
         addComponentsToPane(getContentPane(), gameController);
         accept.addActionListener(e -> setGameSettings(gameController));
@@ -37,13 +37,20 @@ public class SettingsWindow extends JFrame{
         JPanel livePannel = new JPanel();
         livePannel.add(new JLabel("Клеток для жизни: "));
         livePannel.add(reasonLive = new JSpinner());
-        JPanel diePannel = new JPanel();
-        diePannel.add(new JLabel("Клеток для смерти: "));
-        diePannel.add(reasonDie = new JSpinner());
+        reasonLive.setValue(gameController.getGameOfLifeModel().getReasonLive());
+        JPanel diePannelFrom= new JPanel();
+        diePannelFrom.add(new JLabel("Клеток для смерти от : "));
+        diePannelFrom.add(reasonDieFrom = new JSpinner());
+        reasonDieFrom.setValue(gameController.getGameOfLifeModel().getReasonDieFor());
+        JPanel diePannelTo = new JPanel();
+        diePannelTo.add(new JLabel("Клеток для смерти до : "));
+        diePannelTo.add(reasonDieTo = new JSpinner());
+        reasonDieTo.setValue(gameController.getGameOfLifeModel().getReasonDieTo());
         pane.add(sizePanel);
         pane.add(livingPanel);
         pane.add(livePannel);
-        pane.add(diePannel);
+        pane.add(diePannelFrom);
+        pane.add(diePannelTo);
         pane.add(updatePanel);
         pane.add(accept = new JButton("Принять"));
     }
@@ -52,6 +59,7 @@ public class SettingsWindow extends JFrame{
         gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
         gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
         gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
+        gameController.getGameOfLifeModel().
         gameController.getGameOfLifeModel().initFieldContainers();
         gameController.getGameField().getPreferredSize();
         this.setVisible(false);
