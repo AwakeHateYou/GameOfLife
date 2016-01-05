@@ -13,7 +13,7 @@ public class SettingsWindow extends JFrame{
     JButton accept;
     public SettingsWindow(GameController gameController){
         setTitle("Настройки");
-        setSize(260, 180);
+        setSize(260, 250);
         getContentPane().setLayout(new FlowLayout()); //строк и столбцов
         addComponentsToPane(getContentPane(), gameController);
         accept.addActionListener(e -> setGameSettings(gameController));
@@ -26,23 +26,34 @@ public class SettingsWindow extends JFrame{
         width.setValue(gameController.getGameOfLifeModel().getWidth());
         sizePanel.add(height = new JSpinner());
         height.setValue(gameController.getGameOfLifeModel().getHeight());
-        pane.add(sizePanel);
         JPanel livingPanel = new JPanel();
         livingPanel.add(new JLabel("Процент живых клеток: "));
         livingPanel.add(percentageLiving = new JSpinner());
-        pane.add(livingPanel);
+        //percentageLiving.setValue();
         JPanel updatePanel = new JPanel();
         updatePanel.add(new JLabel("Интервал обновления: "));
         updatePanel.add(updateTimer = new JSpinner());
-        add(updatePanel);
-        add(accept = new JButton("Принять"));
+        updateTimer.setValue(gameController.getGameField().getUpdateTimer());
+        JPanel livePannel = new JPanel();
+        livePannel.add(new JLabel("Клеток для жизни: "));
+        livePannel.add(reasonLive = new JSpinner());
+        JPanel diePannel = new JPanel();
+        diePannel.add(new JLabel("Клеток для смерти: "));
+        diePannel.add(reasonDie = new JSpinner());
+        pane.add(sizePanel);
+        pane.add(livingPanel);
+        pane.add(livePannel);
+        pane.add(diePannel);
+        pane.add(updatePanel);
+        pane.add(accept = new JButton("Принять"));
     }
     private void setGameSettings(GameController gameController){
         gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
         gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
         gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
-        gameController.getGameOfLifeModel().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
+        gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
         gameController.getGameOfLifeModel().initFieldContainers();
         gameController.getGameField().getPreferredSize();
+        this.setVisible(false);
     }
 }

@@ -17,14 +17,9 @@ public class GameOfLifeModel {
     }
 
     private int height;
-    private int updateTime;
 
     public void setPercentageLiving(double percentageLiving) {
         this.percentageLiving = percentageLiving;
-    }
-
-    public void setUpdateTime(int updateTime) {
-        this.updateTime = updateTime;
     }
 
     public void setHeight(int height) {
@@ -35,7 +30,16 @@ public class GameOfLifeModel {
         this.width = width;
     }
 
+    public void setReasonLive(byte reasonLive) {
+        this.reasonLive = reasonLive;
+    }
 
+    public void setReasonDie(byte reasonDie) {
+        this.reasonDie = reasonDie;
+    }
+
+    private byte reasonLive = 3;
+    private byte reasonDie = 2;
     private double percentageLiving;
     private byte[] mainField;
     private byte[] backField;
@@ -111,9 +115,13 @@ public class GameOfLifeModel {
      *            кол-во соседей
      * @return новое состояние клетки: 0/1
      */
-    private byte simulateCell(byte self, byte neighbors) {
-        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
+//    private byte simulateCell(byte self, byte neighbors) {
+//        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
+//    }
+    private byte simulateCell(byte self, byte neighbors){
+        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : neighbors < reasonDie ? 0 : 1);
     }
+    //
     /**
      * Подсчет соседей для граничных клеток.
      *

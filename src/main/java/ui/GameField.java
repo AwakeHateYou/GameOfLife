@@ -14,10 +14,15 @@ public class GameField extends JPanel implements Runnable{
 
     private Thread simThread = null;
     private GameOfLifeModel life = null;
+
+    public int getUpdateTimer() {
+        return updateTimer;
+    }
+
     /**
      * Задержка в мс между шагами симуляции.
      */
-    private int updateDelay = 1000;
+    private int updateTimer = 100;
     /**
      * Размер клетки на экране.
      */
@@ -100,16 +105,16 @@ public class GameField extends JPanel implements Runnable{
         addMouseMotionListener(ma);
     }
 
-    public GameOfLifeModel getLifeModel() {
-        return life;
-    }
+//    public GameOfLifeModel getLifeModel() {
+//        return life;
+//    }
 
     public void initialize(GameOfLifeModel model) {
         this.life = model;
     }
 
-    public void setUpdateDelay(int updateDelay) {
-        this.updateDelay = updateDelay;
+    public void setUpdateTimer(int updateTimer) {
+        this.updateTimer = updateTimer;
     }
 
     /**
@@ -138,7 +143,7 @@ public class GameField extends JPanel implements Runnable{
         repaint();
         while (simThread != null) {
             try {
-                Thread.sleep(updateDelay);
+                Thread.sleep(updateTimer);
             } catch (InterruptedException e) {
             }
             // синхронизация используется для того, чтобы метод paintComponent

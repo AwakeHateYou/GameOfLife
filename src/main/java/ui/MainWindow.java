@@ -63,12 +63,10 @@ public class MainWindow extends JFrame{
      * Изменяет размер главного окна.
      * @param length длина строки.
      */
-//    public void resize(int length) {
-//        Insets insets = getInsets();
-//        setSize(new Dimension(
-//                SYMBOL_HEIGHT * length + insets.left + insets.right,
-//                SYMBOL_HEIGHT * 2 + insets.bottom + insets.top));
-//    }
+    public void resize() {
+        Insets insets = getInsets();
+        setSize(gameController.getGameField().getPreferredSize());
+    }
 
     /**
      * Точка входа в программу.
