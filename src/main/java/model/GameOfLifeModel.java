@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Контейнер с игровым полем.
@@ -41,6 +42,11 @@ public class GameOfLifeModel {
     private byte reasonLive = 3;
     private byte reasonDie = 2;
     private double percentageLiving;
+
+    public byte[] getMainField() {
+        return mainField;
+    }
+
     private byte[] mainField;
     private byte[] backField;
     private int[] neighborOffsets;
@@ -65,6 +71,21 @@ public class GameOfLifeModel {
         backField = new byte[width * height];
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
+    }
+    public double countLiveStart(){
+        double count = 0;
+        for (int i = 0; i < getMainField().length; i++ ){
+            if (getMainField()[i] == 1){
+                count++;
+            }
+        }
+        return (count / getMainField().length)*100;
+    }
+    public void randFieldByPer(){
+        Random random = new Random();
+        for (int i = 0; i < getMainField().length; i++ ){
+            getMainField()[i] = ((byte)random.nextInt(3-1));
+        }
     }
     public void simulate() {
         // обрабатываем клетки, не касающиеся краев поля
