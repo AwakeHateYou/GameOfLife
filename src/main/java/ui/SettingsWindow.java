@@ -29,7 +29,7 @@ public class SettingsWindow extends JFrame{
         JPanel livingPanel = new JPanel();
         livingPanel.add(new JLabel("Процент живых клеток: "));
         livingPanel.add(percentageLiving = new JSpinner());
-        //percentageLiving.setValue();
+        percentageLiving.setValue(gameController.getGameOfLifeModel().getPercentageLiving());
         JPanel updatePanel = new JPanel();
         updatePanel.add(new JLabel("Интервал обновления: "));
         updatePanel.add(updateTimer = new JSpinner());
@@ -59,7 +59,6 @@ public class SettingsWindow extends JFrame{
         gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
         gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
         gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
-        gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
         gameController.getGameOfLifeModel().initFieldContainers();
         gameController.getGameField().getPreferredSize();
         this.setVisible(false);

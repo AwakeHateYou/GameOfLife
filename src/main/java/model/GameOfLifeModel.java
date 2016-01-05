@@ -39,7 +39,7 @@ public class GameOfLifeModel {
         this.reasonDieFor = reasonDieFor;
     }
 
-    private byte reasonLive = 3;
+
 
     public byte getReasonDieTo() {
         return reasonDieTo;
@@ -56,10 +56,10 @@ public class GameOfLifeModel {
     public double getPercentageLiving() {
         return percentageLiving;
     }
-
-    private byte reasonDieFor = 2;
-    private byte reasonDieTo = 2;
-    private double percentageLiving;
+    private byte reasonLive = 2;
+    private byte reasonDieFor = 3;
+    private byte reasonDieTo = 4;
+    private double percentageLiving = 10;
 
     public byte[] getMainField() {
         return mainField;
@@ -90,18 +90,20 @@ public class GameOfLifeModel {
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
     }
-    public void randByPerc(double percents) {
-        for (int i = 0; i < (int)(mainField.length * width * percents); i++) {
+    public void randByPerc() {
+        for (int i = 0; i < (int)(mainField.length * width * percentageLiving/100); i++) {
             Random r = new Random();
-            int axis = r.nextInt(mainField.length);
-            int ordinate = r.nextInt(width);
-
+            int axis = r.nextInt(width);
+            int ordinate = r.nextInt(height);
+            System.out.println(axis);
+            System.out.println(ordinate);
             while (mainField[axis + ordinate*height] == 1) {
+
                 axis = r.nextInt(mainField.length);
                 ordinate = r.nextInt(width);
             }
 
-            mainField[axis + ordinate * height] = 1;
+            mainField[axis + ordinate * width] = 1;
         }
     }
     public void simulate() {
@@ -157,7 +159,7 @@ public class GameOfLifeModel {
 //        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
 //    }
     private byte simulateCell(byte self, byte neighbors){
-        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : neighbors < reasonDieFor ? 0 : 1);
+        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : (neighbors < reasonDieFor || neighbors > reasonDieTo) ? 0 : 1);
     }
     //
     /**
