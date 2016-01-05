@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class SettingsWindow extends JFrame{
-    JSpinner width, height, percentageLiving, updateTimer;
+    JSpinner width, height, percentageLiving, updateTimer, reasonLive, reasonDie;
     JButton accept;
     public SettingsWindow(GameController gameController){
         setTitle("Настройки");
@@ -42,5 +42,7 @@ public class SettingsWindow extends JFrame{
         gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
         gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
         gameController.getGameOfLifeModel().setUpdateTime(Integer.parseInt(updateTimer.getValue().toString()));
+        gameController.getGameOfLifeModel().initFieldContainers();
+        gameController.getGameField().getPreferredSize();
     }
 }

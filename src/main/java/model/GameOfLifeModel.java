@@ -56,7 +56,7 @@ public class GameOfLifeModel {
     public byte getCell(int x, int y) {
         return mainField[y * width + x];
     }
-    private void initFieldContainers(){
+    public void initFieldContainers(){
         mainField = new byte[width * height];
         backField = new byte[width * height];
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };

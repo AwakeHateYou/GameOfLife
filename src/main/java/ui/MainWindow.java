@@ -36,8 +36,8 @@ public class MainWindow extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Игра в жизнь");
         pack();
-        setSize(300, 400);
-        setResizable(false);
+//        setSize(300, 400);
+//        setResizable(false);
         setVisible(true);
     }
 

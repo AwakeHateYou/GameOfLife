@@ -161,8 +161,9 @@ public class GameField extends JPanel implements Runnable{
             Insets b = getInsets();
             return new Dimension((cellSize + cellGap) * life.getWidth() + cellGap + b.left + b.right,
                     (cellSize + cellGap) * life.getHeight() + cellGap + b.top + b.bottom);
-        } else
+        } else {
             return new Dimension(100, 100);
+        }
     }
 
     /*

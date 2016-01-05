@@ -20,6 +20,6 @@ public class GameController {
     private GameField gameField;
     public GameController(GameField gameField){
         this.gameField = gameField;
-        this.gameOfLifeModel = new GameOfLifeModel(700, 300);
+        this.gameOfLifeModel = new GameOfLifeModel(50, 50);
     }
 }
