@@ -17,7 +17,7 @@ public class GameField extends JPanel implements Runnable{
     /**
      * Задержка в мс между шагами симуляции.
      */
-    private int updateDelay = 100;
+    private int updateDelay = 1000;
     /**
      * Размер клетки на экране.
      */
@@ -104,9 +104,9 @@ public class GameField extends JPanel implements Runnable{
         return life;
     }
 
-//    public void initialize(int width, int height) {
-//        life = new LifeModel(width, height);
-//    }
+    public void initialize(GameOfLifeModel model) {
+        this.life = model;
+    }
 
     public void setUpdateDelay(int updateDelay) {
         this.updateDelay = updateDelay;

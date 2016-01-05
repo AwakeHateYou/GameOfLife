@@ -11,6 +11,7 @@ import java.awt.*;
 public class MainWindow extends JFrame{
 
     JMenuBar menuBar;
+    GameController gameController;
 
     /**
      * Игровое поле.
@@ -27,8 +28,8 @@ public class MainWindow extends JFrame{
      * Конструктор.
      */
     public MainWindow() {
+
         initComponents();
-        GameController gameController = new GameController();
         menuBar = new JMenuBar();
         menuBar.add(new Menu(gameController));
         this.setJMenuBar(menuBar);
@@ -46,6 +47,8 @@ public class MainWindow extends JFrame{
     private void initComponents() {
         getContentPane().setLayout(new FlowLayout());
         gameField = new GameField();
+        gameController = new GameController(gameField);
+        gameField.initialize(gameController.getGameOfLifeModel());
         getContentPane().add(gameField);
 //        runningPanel = new RunningPanel(DEFAULT_COLOR);
 //        getContentPane().add(runningPanel);
