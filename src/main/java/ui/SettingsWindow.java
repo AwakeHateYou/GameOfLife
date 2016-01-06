@@ -1,6 +1,7 @@
 package ui;
 
 import controller.GameController;
+import util.NotACorrectSettingsException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,6 +57,7 @@ public class SettingsWindow extends JFrame{
     }
     private void setGameSettings(GameController gameController){
         try {
+            checkSettings();
             gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
             gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
             gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
@@ -67,9 +69,20 @@ public class SettingsWindow extends JFrame{
             gameController.getGameField().getPreferredSize();
             this.setVisible(false);
         }catch (Exception e){
-            if (e instanceof NumberFormatException){
-
-            }
+            catchException(e);
         }
+    }
+    private void checkSettings() throws Exception{
+        if(Integer.parseInt(width.getValue().toString()) <= 0)
+            throw new NotACorrectSettingsException();
+
+    }
+    /**
+     * Catches NumberFormatException.
+     * @param e - NumberFormatException.
+     */
+    private static void catchException(Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("><");
     }
 }

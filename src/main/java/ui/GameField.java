@@ -39,7 +39,9 @@ public class GameField extends JPanel implements Runnable{
      * Цвет живой клетки.
      */
     private static final Color c1 = new Color(0xFFFFFF);
-
+    /**
+     * Включен автоматический режим.
+     */
     public GameField() {
         setBackground(Color.BLACK);
 
@@ -142,10 +144,11 @@ public class GameField extends JPanel implements Runnable{
     public void run() {
         repaint();
         while (simThread != null) {
-            try {
-                Thread.sleep(updateTimer);
-            } catch (InterruptedException e) {
-            }
+                try {
+                   Thread.sleep(updateTimer);
+                } catch (InterruptedException e) {
+                }
+
             // синхронизация используется для того, чтобы метод paintComponent
             // не выводил на экран
             // содержимое поля, которое в данный момент меняется

@@ -177,4 +177,5 @@ public class GameOfLifeModel {
         }
         return n;
     }
+
 }
