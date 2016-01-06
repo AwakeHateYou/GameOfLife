@@ -1,7 +1,7 @@
 package ui;
 
 import controller.GameController;
-import util.NotACorrectSettingsException;
+import util.NotAPositiveValueException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +74,7 @@ public class SettingsWindow extends JFrame{
     }
     private void checkSettings() throws Exception{
         if(Integer.parseInt(width.getValue().toString()) <= 0)
-            throw new NotACorrectSettingsException();
+            throw new NotAPositiveValueException();
 
     }
     /**
@@ -82,7 +82,6 @@ public class SettingsWindow extends JFrame{
      * @param e - NumberFormatException.
      */
     private static void catchException(Exception e) {
-        System.out.println(e.getMessage());
-        System.out.println("><");
+        new JOptionPane().showMessageDialog(null, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
     }
 }
