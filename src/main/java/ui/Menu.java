@@ -41,7 +41,6 @@ public class Menu extends JMenu {
         settingsWindow.setVisible(true);
     }
     private void startGameAutomatic(){
-        //gameController.getGameOfLifeModel().randByPerc();
         step.setVisible(false);
         if(gameController.isSimulating()){
             gameController.stopSimulation();

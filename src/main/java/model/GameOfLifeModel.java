@@ -64,7 +64,7 @@ public class GameOfLifeModel {
     }
 
 
-    private double percentageLiving = 10;
+    private double percentageLiving = 0;
 
     private byte[] mainField;
     private byte[] backField;
@@ -91,8 +91,7 @@ public class GameOfLifeModel {
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
     }
-    public void randByPerc() {
-        //System.out.println((height-1) * (width-1) * percentageLiving/100);
+    public void randomizeByPercent() {
         for (int i = 0; i < (int)((height-1) * (width-1) * percentageLiving/100); i++) {
             Random r = new Random();
             int axis = r.nextInt(height - 1);

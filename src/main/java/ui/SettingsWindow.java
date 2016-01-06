@@ -68,6 +68,7 @@ public class SettingsWindow extends JFrame{
             checkNeighbours();
             checkPercentege();
             pullSettingsToModel(gameController);
+            gameController.getGameOfLifeModel().randomizeByPercent();
             gameController.getGameField().getPreferredSize();
             this.setVisible(false);
         }catch (Exception e){
@@ -95,8 +96,8 @@ public class SettingsWindow extends JFrame{
     private void checkSettingsToPositive() throws Exception{
         if(Integer.parseInt(width.getValue().toString()) <= 0
                 || Integer.parseInt(height.getValue().toString()) <= 0
-                || Double.parseDouble(percentageLiving.getValue().toString()) <= 0
-                || Integer.parseInt(updateTimer.getValue().toString()) <= 0
+                || Double.parseDouble(percentageLiving.getValue().toString()) < 0
+                || Integer.parseInt(updateTimer.getValue().toString()) < 0
                 || Byte.parseByte(reasonLive.getValue().toString()) < 0
                 || Byte.parseByte(reasonDieFrom.getValue().toString()) < 0
                 || Byte.parseByte(reasonDieTo.getValue().toString()) < 0)
