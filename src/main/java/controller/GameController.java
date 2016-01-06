@@ -22,4 +22,22 @@ public class GameController {
         this.gameField = gameField;
         this.gameOfLifeModel = new GameOfLifeModel(50, 50);
     }
+    /**
+     * Остановка симуляции.
+     */
+    public void stopSimulation() {
+        gameField.setSimThread(null);
+    }
+    /**
+     * Запуск симуляции.
+     */
+    public void startSimulation() {
+        if (gameField.getSimThread() == null) {
+            gameField.setSimThread(new Thread(gameField));
+            gameField.getSimThread().start();
+        }
+    }
+    public boolean isSimulating() {
+        return gameField.getSimThread() != null;
+    }
 }

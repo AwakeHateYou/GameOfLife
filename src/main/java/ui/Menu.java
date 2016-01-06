@@ -34,7 +34,7 @@ public class Menu extends JMenu {
         auto.addActionListener(e -> startGameAutomatic());
         manual.addActionListener(e -> startGameManual());
         step.addActionListener(e -> nextStep());
-        aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, "Hello!", "About program", JOptionPane.PLAIN_MESSAGE));
+        aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, ABOUT_MESSAGE, "About page", JOptionPane.PLAIN_MESSAGE));
     }
     private void showSettingsWindow(){
         settingsWindow = new SettingsWindow(gameController);
@@ -43,21 +43,21 @@ public class Menu extends JMenu {
     private void startGameAutomatic(){
         //gameController.getGameOfLifeModel().randByPerc();
         step.setVisible(false);
-        if(gameController.getGameField().isSimulating()){
-            gameController.getGameField().stopSimulation();
+        if(gameController.isSimulating()){
+            gameController.stopSimulation();
             auto.setText("Автоматический режим");
         } else {
-            gameController.getGameField().startSimulation();
+            gameController.startSimulation();
             auto.setText("Остановить");
         }
     }
     private void startGameManual(){
         step.setVisible(true);
-        gameController.getGameField().setUpdateTimer(0);
     }
     private void nextStep(){
         gameController.getGameOfLifeModel().simulate();
         gameController.getGameField().repaint();
 
     }
+    static final String ABOUT_MESSAGE = "Игра <Жизнь> \nТерентьев Евгений ИВТ-42БО\nпоследняя версия 06.01.2016";
 }

@@ -108,9 +108,9 @@ public class SettingsWindow extends JFrame{
      * @throws WrongAmountNeighboursException
      */
     private void checkNeighbours() throws Exception{
-        if(Byte.parseByte(reasonLive.getValue().toString()) <= 8
-                || Byte.parseByte(reasonDieFrom.getValue().toString()) <= 8
-                || Byte.parseByte(reasonDieTo.getValue().toString()) <= 8)
+        if(Byte.parseByte(reasonLive.getValue().toString()) >= 8
+                || Byte.parseByte(reasonDieFrom.getValue().toString()) >= 8
+                || Byte.parseByte(reasonDieTo.getValue().toString()) >= 8)
             throw new WrongAmountNeighboursException();
 
     }

@@ -12,6 +12,14 @@ import java.awt.event.MouseEvent;
  */
 public class GameField extends JPanel implements Runnable{
 
+    public void setSimThread(Thread simThread) {
+        this.simThread = simThread;
+    }
+
+    public Thread getSimThread() {
+        return simThread;
+    }
+
     private Thread simThread = null;
     private GameOfLifeModel life = null;
 
@@ -34,11 +42,11 @@ public class GameField extends JPanel implements Runnable{
     /**
      * Цвет мертвой клетки.
      */
-    private static final Color c0 = new Color(0x505050);
+    private static final Color dead = new Color(0x505050);
     /**
      * Цвет живой клетки.
      */
-    private static final Color c1 = new Color(0xFFFFFF);
+    private static final Color live = new Color(0xFFFFFF);
     /**
      * Включен автоматический режим.
      */
@@ -119,26 +127,8 @@ public class GameField extends JPanel implements Runnable{
         this.updateTimer = updateTimer;
     }
 
-    /**
-     * Запуск симуляции.
-     */
-    public void startSimulation() {
-        if (simThread == null) {
-            simThread = new Thread(this);
-            simThread.start();
-        }
-    }
 
-    /**
-     * Остановка симуляции.
-     */
-    public void stopSimulation() {
-        simThread = null;
-    }
 
-    public boolean isSimulating() {
-        return simThread != null;
-    }
 
     @Override
     public void run() {
@@ -186,7 +176,7 @@ public class GameField extends JPanel implements Runnable{
                 for (int y = 0; y < life.getHeight(); y++) {
                     for (int x = 0; x < life.getWidth(); x++) {
                         byte c = life.getCell(x, y);
-                        g.setColor(c == 1 ? c1 : c0);
+                        g.setColor(c == 1 ? live : dead);
                         g.fillRect(b.left + cellGap + x * (cellSize + cellGap), b.top + cellGap + y
                                 * (cellSize + cellGap), cellSize, cellSize);
                     }
