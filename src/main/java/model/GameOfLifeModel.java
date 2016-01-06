@@ -153,11 +153,8 @@ public class GameOfLifeModel {
      *            кол-во соседей
      * @return новое состояние клетки: 0/1
      */
-//    private byte simulateCell(byte self, byte neighbors) {
-//        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
-//    }
     private byte simulateCell(byte self, byte neighbors){
-        return (byte) (self == 0 ? (neighbors >= reasonLive ? 1 : 0) : ((neighbors <= reasonDieFor || neighbors >= reasonDieTo) ? 0 : 1));
+        return (byte) (self == 0 ? (neighbors >= reasonLive ? 1 : 0) : ((neighbors < reasonDieFor || neighbors > reasonDieTo) ? 0 : 1));
     }
     //
     /**
