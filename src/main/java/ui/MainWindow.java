@@ -9,26 +9,23 @@ import java.awt.*;
  * Created by etere on 18.12.2015.
  */
 public class MainWindow extends JFrame{
-
+    /**
+     * Панель меню.
+     */
     JMenuBar menuBar;
+    /**
+     * Управление игрой.
+     */
     GameController gameController;
 
     /**
      * Игровое поле.
      */
     private GameField gameField;
-
-    /** Ссылка на окно настроек. */
-  //  private OptionsWindow optionsWindow;
-
-    /** Ссылка на панель, отрисовывающую строку. */
-   // private RunningPanel runningPanel;
-
     /**
      * Конструктор.
      */
     public MainWindow() {
-
         initComponents();
         menuBar = new JMenuBar();
         menuBar.add(new Menu(gameController));
@@ -49,21 +46,15 @@ public class MainWindow extends JFrame{
         gameField.initialize(gameController.getGameOfLifeModel());
         getContentPane().add(gameField);
     }
-
-    /**
-     * Изменяет размер главного окна.
-     * @param length длина строки.
-     */
-    public void resize() {
-        Insets insets = getInsets();
-        setSize(gameController.getGameField().getPreferredSize());
-    }
-
     /**
      * Точка входа в программу.
      * @param args входные аргументы.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(MainWindow::new);
+    public static void main(String[] args) throws Exception{
+        try {
+            EventQueue.invokeLater(MainWindow::new);
+        }catch (Exception e){
+
+        }
     }
 }

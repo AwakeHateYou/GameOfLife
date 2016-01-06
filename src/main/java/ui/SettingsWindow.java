@@ -55,12 +55,21 @@ public class SettingsWindow extends JFrame{
         pane.add(accept = new JButton("Принять"));
     }
     private void setGameSettings(GameController gameController){
-        gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
-        gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
-        gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
-        gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
-        gameController.getGameOfLifeModel().initFieldContainers();
-        gameController.getGameField().getPreferredSize();
-        this.setVisible(false);
+        try {
+            gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
+            gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
+            gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
+            gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
+            gameController.getGameOfLifeModel().setReasonLive(Byte.parseByte(reasonLive.getValue().toString()));
+            gameController.getGameOfLifeModel().setReasonDieFor(Byte.parseByte(reasonDieFrom.getValue().toString()));
+            gameController.getGameOfLifeModel().setReasonDieTo(Byte.parseByte(reasonDieTo.getValue().toString()));
+            gameController.getGameOfLifeModel().initFieldContainers();
+            gameController.getGameField().getPreferredSize();
+            this.setVisible(false);
+        }catch (Exception e){
+            if (e instanceof NumberFormatException){
+
+            }
+        }
     }
 }

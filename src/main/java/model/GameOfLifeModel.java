@@ -56,14 +56,15 @@ public class GameOfLifeModel {
     public double getPercentageLiving() {
         return percentageLiving;
     }
-    private byte reasonLive = 2;
-    private byte reasonDieFor = 3;
-    private byte reasonDieTo = 4;
-    private double percentageLiving = 10;
-
-    public byte[] getMainField() {
-        return mainField;
+    private byte reasonLive = 3;
+    private byte reasonDieFor = 2;
+    private byte reasonDieTo = 3;
+    public void setReasonDieTo(byte reasonDieTo) {
+        this.reasonDieTo = reasonDieTo;
     }
+
+
+    private double percentageLiving = 10;
 
     private byte[] mainField;
     private byte[] backField;
@@ -157,7 +158,7 @@ public class GameOfLifeModel {
 //        return (byte) (self == 0 ? (neighbors == 3 ? 1 : 0) : neighbors == 2 || neighbors == 3 ? 1 : 0);
 //    }
     private byte simulateCell(byte self, byte neighbors){
-        return (byte) (self == 0 ? (neighbors > reasonLive ? 1 : 0) : (neighbors < reasonDieFor || neighbors > reasonDieTo) ? 0 : 1);
+        return (byte) (self == 0 ? (neighbors >= reasonLive ? 1 : 0) : ((neighbors <= reasonDieFor || neighbors >= reasonDieTo) ? 0 : 1));
     }
     //
     /**

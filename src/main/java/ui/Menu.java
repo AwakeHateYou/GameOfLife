@@ -8,7 +8,7 @@ import javax.swing.*;
  * Created by etere on 18.12.2015.
  */
 public class Menu extends JMenu {
-    JMenuItem settings, aboutProgram, start;
+    JMenuItem settings, aboutProgram, start, auto, manual, stop;
     SettingsWindow settingsWindow;
     GameController gameController;
     public Menu(GameController gameController){
@@ -21,10 +21,14 @@ public class Menu extends JMenu {
     private void initComponents(){
         setText("Меню");
         settings = new JMenuItem("Настройки");
-        start = new JMenuItem("Запустить");
+        start = new JMenu("Управление");
+        auto = new JMenuItem("Автоматический режим");
+        manual = new JMenuItem("Ручной режим");
+        start.add(auto);
+        start.add(manual);
         aboutProgram = new JMenuItem("О программе");
         settings.addActionListener(e -> showSettingsWindow());
-        start.addActionListener(e -> startGame());
+        auto.addActionListener(e -> startGame());
         aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, "Hello!", "About program", JOptionPane.PLAIN_MESSAGE));
     }
     private void showSettingsWindow(){
@@ -32,13 +36,13 @@ public class Menu extends JMenu {
         settingsWindow.setVisible(true);
     }
     private void startGame(){
-        gameController.getGameOfLifeModel().randByPerc();
+        //gameController.getGameOfLifeModel().randByPerc();
         if(gameController.getGameField().isSimulating()){
             gameController.getGameField().stopSimulation();
-            start.setText("Запустить");
+            auto.setText("Автоматический режим");
         } else {
             gameController.getGameField().startSimulation();
-            start.setText("Остановить");
+            auto.setText("Остановить");
         }
     }
 }
