@@ -2,6 +2,8 @@ package ui;
 
 import controller.GameController;
 import util.NotAPositiveValueException;
+import util.PercentageNotCorrectException;
+import util.WrongAmountNeighboursException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,31 +57,74 @@ public class SettingsWindow extends JFrame{
         pane.add(updatePanel);
         pane.add(accept = new JButton("Принять"));
     }
+
+    /**
+     * Установка настроек игры.
+     * @param gameController контроллер
+     */
     private void setGameSettings(GameController gameController){
         try {
-            checkSettings();
-            gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
-            gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
-            gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
-            gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
-            gameController.getGameOfLifeModel().setReasonLive(Byte.parseByte(reasonLive.getValue().toString()));
-            gameController.getGameOfLifeModel().setReasonDieFor(Byte.parseByte(reasonDieFrom.getValue().toString()));
-            gameController.getGameOfLifeModel().setReasonDieTo(Byte.parseByte(reasonDieTo.getValue().toString()));
-            gameController.getGameOfLifeModel().initFieldContainers();
+            checkSettingsToPositive();
+            checkNeighbours();
+            checkPercentege();
+            pullSettingsToModel(gameController);
             gameController.getGameField().getPreferredSize();
             this.setVisible(false);
         }catch (Exception e){
             catchException(e);
         }
     }
-    private void checkSettings() throws Exception{
-        if(Integer.parseInt(width.getValue().toString()) <= 0)
+    /**
+     * Отправляет настройки в моделью
+     * @param gameController контроллер
+     */
+    private void pullSettingsToModel(GameController gameController){
+        gameController.getGameOfLifeModel().setWidth(Integer.parseInt(width.getValue().toString()));
+        gameController.getGameOfLifeModel().setHeight(Integer.parseInt(height.getValue().toString()));
+        gameController.getGameOfLifeModel().setPercentageLiving(Double.parseDouble(percentageLiving.getValue().toString()));
+        gameController.getGameField().setUpdateTimer(Integer.parseInt(updateTimer.getValue().toString()));
+        gameController.getGameOfLifeModel().setReasonLive(Byte.parseByte(reasonLive.getValue().toString()));
+        gameController.getGameOfLifeModel().setReasonDieFor(Byte.parseByte(reasonDieFrom.getValue().toString()));
+        gameController.getGameOfLifeModel().setReasonDieTo(Byte.parseByte(reasonDieTo.getValue().toString()));
+        gameController.getGameOfLifeModel().initFieldContainers();
+    }
+    /**
+     * Проверка на положительность.
+     * @throws NotAPositiveValueException
+     */
+    private void checkSettingsToPositive() throws Exception{
+        if(Integer.parseInt(width.getValue().toString()) <= 0
+                || Integer.parseInt(height.getValue().toString()) <= 0
+                || Double.parseDouble(percentageLiving.getValue().toString()) <= 0
+                || Integer.parseInt(updateTimer.getValue().toString()) <= 0
+                || Byte.parseByte(reasonLive.getValue().toString()) < 0
+                || Byte.parseByte(reasonDieFrom.getValue().toString()) < 0
+                || Byte.parseByte(reasonDieTo.getValue().toString()) < 0)
             throw new NotAPositiveValueException();
 
     }
     /**
-     * Catches NumberFormatException.
-     * @param e - NumberFormatException.
+     * Проверка на корректность количества соседей.
+     * @throws WrongAmountNeighboursException
+     */
+    private void checkNeighbours() throws Exception{
+        if(Byte.parseByte(reasonLive.getValue().toString()) <= 8
+                || Byte.parseByte(reasonDieFrom.getValue().toString()) <= 8
+                || Byte.parseByte(reasonDieTo.getValue().toString()) <= 8)
+            throw new WrongAmountNeighboursException();
+
+    }
+    /**
+     * Проверка введеных процентов.
+     * @throws PercentageNotCorrectException
+     */
+    private void checkPercentege() throws Exception{
+        if(Double.parseDouble(percentageLiving.getValue().toString()) > 100)
+            throw new PercentageNotCorrectException();
+    }
+    /**
+     * Ловит все исключения.
+     * @param e - NumberFormatException, NotAPositiveValueException, WrongAmpuntNeighboursException.
      */
     private static void catchException(Exception e) {
         new JOptionPane().showMessageDialog(null, e.getMessage(), "Alert", JOptionPane.ERROR_MESSAGE);
