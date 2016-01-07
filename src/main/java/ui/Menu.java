@@ -5,12 +5,26 @@ import controller.GameController;
 import javax.swing.*;
 
 /**
- * Created by etere on 18.12.2015.
+ * Меню с выбором режимов и изменением натроек.
  */
 public class Menu extends JMenu {
+    /**
+     * Пункты меню.
+     */
     JMenuItem settings, aboutProgram, start, auto, manual, step;
+    /**
+     * Оксно настроек.
+     */
     SettingsWindow settingsWindow;
+    /**
+     * Ссылка на контроллер игрыю
+     */
     GameController gameController;
+
+    /**
+     * Конструктор
+     * @param gameController контроллер игры
+     */
     public Menu(GameController gameController){
         this.gameController = gameController;
         initComponents();
@@ -19,6 +33,10 @@ public class Menu extends JMenu {
         add(aboutProgram);
         add(step);
     }
+
+    /**
+     * Размещение этементов меню.
+     */
     private void initComponents(){
         setText("Меню");
         settings = new JMenuItem("Настройки");
@@ -30,16 +48,31 @@ public class Menu extends JMenu {
         start.add(auto);
         start.add(manual);
         aboutProgram = new JMenuItem("О программе");
+        bind();
+    }
+
+    /**
+     * Установка связей пунктов меню.
+     */
+    private void bind(){
         settings.addActionListener(e -> showSettingsWindow());
         auto.addActionListener(e -> startGameAutomatic());
         manual.addActionListener(e -> startGameManual());
         step.addActionListener(e -> nextStep());
         aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, ABOUT_MESSAGE, "About page", JOptionPane.PLAIN_MESSAGE));
     }
+
+    /**
+     * Вывод окна с настройками.
+     */
     private void showSettingsWindow(){
         settingsWindow = new SettingsWindow(gameController);
         settingsWindow.setVisible(true);
     }
+
+    /**
+     * Запуск игры в автоматическом режиме.
+     */
     private void startGameAutomatic(){
         step.setVisible(false);
         if(gameController.isSimulating()){

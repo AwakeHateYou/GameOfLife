@@ -50,11 +50,7 @@ public class MainWindow extends JFrame{
      * Точка входа в программу.
      * @param args входные аргументы.
      */
-    public static void main(String[] args) throws Exception{
-        try {
-            EventQueue.invokeLater(MainWindow::new);
-        }catch (Exception e){
-
-        }
+    public static void main(String[] args){
+        EventQueue.invokeLater(MainWindow::new);
     }
 }
