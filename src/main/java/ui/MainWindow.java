@@ -41,10 +41,8 @@ public class MainWindow extends JFrame{
      */
     private void initComponents() {
         getContentPane().setLayout(new FlowLayout());
-        gameField = new GameField();
-        gameController = new GameController(gameField);
-        gameField.initialize(gameController.getGameOfLifeModel());
-        getContentPane().add(gameField);
+        gameController = new GameController();
+        getContentPane().add(gameController.getGameField());
     }
     /**
      * Точка входа в программу.

@@ -22,33 +22,34 @@ public class SettingsWindow extends JFrame{
         accept.addActionListener(e -> setGameSettings(gameController));
         setResizable(false);
     }
+
+    /**
+     * Размещение элементов окна настроек.
+     * @param pane панель
+     * @param gameController контроллер
+     */
     private void addComponentsToPane(Container pane, GameController gameController ){
         JPanel sizePanel = new JPanel();
         sizePanel.add(new JLabel("Размеры поля: "));
         sizePanel.add(width = new JSpinner());
-        width.setValue(gameController.getGameOfLifeModel().getWidth());
         sizePanel.add(height = new JSpinner());
         height.setValue(gameController.getGameOfLifeModel().getHeight());
         JPanel livingPanel = new JPanel();
         livingPanel.add(new JLabel("Процент живых клеток: "));
         livingPanel.add(percentageLiving = new JSpinner());
-        percentageLiving.setValue(gameController.getGameOfLifeModel().getPercentageLiving());
         JPanel updatePanel = new JPanel();
         updatePanel.add(new JLabel("Интервал обновления: "));
         updatePanel.add(updateTimer = new JSpinner());
-        updateTimer.setValue(gameController.getGameField().getUpdateTimer());
         JPanel livePannel = new JPanel();
         livePannel.add(new JLabel("Клеток для жизни: "));
         livePannel.add(reasonLive = new JSpinner());
-        reasonLive.setValue(gameController.getGameOfLifeModel().getReasonLive());
         JPanel diePannelFrom= new JPanel();
         diePannelFrom.add(new JLabel("Клеток для смерти от : "));
         diePannelFrom.add(reasonDieFrom = new JSpinner());
-        reasonDieFrom.setValue(gameController.getGameOfLifeModel().getReasonDieFor());
         JPanel diePannelTo = new JPanel();
         diePannelTo.add(new JLabel("Клеток для смерти до : "));
         diePannelTo.add(reasonDieTo = new JSpinner());
-        reasonDieTo.setValue(gameController.getGameOfLifeModel().getReasonDieTo());
+        setDefaultValues(gameController);
         pane.add(sizePanel);
         pane.add(livingPanel);
         pane.add(livePannel);
@@ -56,6 +57,19 @@ public class SettingsWindow extends JFrame{
         pane.add(diePannelTo);
         pane.add(updatePanel);
         pane.add(accept = new JButton("Принять"));
+    }
+
+    /**
+     * Установить значения по умолчанию.
+     * @param gameController контроллер
+     */
+    private void setDefaultValues(GameController gameController){
+        width.setValue(gameController.getGameOfLifeModel().getWidth());
+        percentageLiving.setValue(gameController.getGameOfLifeModel().getPercentageLiving());
+        updateTimer.setValue(gameController.getGameField().getUpdateTimer());
+        reasonLive.setValue(gameController.getGameOfLifeModel().getReasonLive());
+        reasonDieFrom.setValue(gameController.getGameOfLifeModel().getReasonDieFor());
+        reasonDieTo.setValue(gameController.getGameOfLifeModel().getReasonDieTo());
     }
 
     /**

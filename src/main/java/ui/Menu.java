@@ -83,13 +83,28 @@ public class Menu extends JMenu {
             auto.setText("Остановить");
         }
     }
+
+    /**
+     * Запуск игры в ручной режиме.
+     */
     private void startGameManual(){
+        if(gameController.isSimulating()) {
+            gameController.stopSimulation();
+        }
         step.setVisible(true);
     }
+
+    /**
+     * Сделать шаг в симуляции.
+     */
     private void nextStep(){
         gameController.getGameOfLifeModel().simulate();
         gameController.getGameField().repaint();
 
     }
+
+    /**
+     * Информация о программе.
+     */
     static final String ABOUT_MESSAGE = "Игра <Жизнь> \nТерентьев Евгений ИВТ-42БО\nпоследняя версия 06.01.2016";
 }
