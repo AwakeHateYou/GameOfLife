@@ -132,7 +132,6 @@ public class GameOfLifeModel {
             backField[j + width - 1] = simulateCell(mainField[j + width - 1], n);
         }
 
-        // обмениваем поля местами
         byte[] t = mainField;
         mainField = backField;
         backField = t;
@@ -146,11 +145,8 @@ public class GameOfLifeModel {
     }
     /**
      * Симуляция для одной клетки.
-     *
-     * @param self
-     *            собственное состояние клетки: 0/1
-     * @param neighbors
-     *            кол-во соседей
+     * @param self собственное состояние клетки: 0/1
+     * @param neighbors кол-во соседей
      * @return новое состояние клетки: 0/1
      */
     private byte simulateCell(byte self, byte neighbors){
@@ -159,9 +155,8 @@ public class GameOfLifeModel {
     //
     /**
      * Подсчет соседей для граничных клеток.
-     *
-     * @param x
-     * @param y
+     * @param x координата х
+     * @param y координата у
      * @return кол-во соседей
      */
     private byte countBorderNeighbors(int x, int y) {

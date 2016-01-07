@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Created by etere on 20.12.2015.
+ * Отображение игрового поля.
  */
 public class GameField extends JPanel implements Runnable{
 
@@ -88,13 +88,11 @@ public class GameField extends JPanel implements Runnable{
             /**
              * Устанавливает/стирает клетку.
              *
-             * @param e
+             * @param e ивент мыши
              */
             private void setCell(MouseEvent e) {
                 if (lifeModel != null) {
                     synchronized (lifeModel) {
-                        // рассчитываем координаты клетки, на которую указывает
-                        // курсор мыши
                         int x = e.getX() / (cellSize + cellGap);
                         int y = e.getY() / (cellSize + cellGap);
                         if (x >= 0 && y >= 0 && x < lifeModel.getWidth() && y < lifeModel.getHeight()) {

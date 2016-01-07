@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by etere on 18.12.2015.
+ * Оксно с настройками приложения.
  */
 public class SettingsWindow extends JFrame{
     JSpinner width, height, percentageLiving, updateTimer, reasonLive, reasonDieFrom, reasonDieTo;
@@ -80,10 +80,10 @@ public class SettingsWindow extends JFrame{
         try {
             checkSettingsToPositive();
             checkNeighbours();
-            checkPercentege();
+            checkPercentage();
             pullSettingsToModel(gameController);
             gameController.getGameOfLifeModel().randomizeByPercent();
-            gameController.getGameField().getPreferredSize();
+            gameController.getGameField().repaint();
             this.setVisible(false);
         }catch (Exception e){
             catchException(e);
@@ -133,7 +133,7 @@ public class SettingsWindow extends JFrame{
      * Проверка введеных процентов.
      * @throws PercentageNotCorrectException
      */
-    private void checkPercentege() throws Exception{
+    private void checkPercentage() throws Exception{
         if(Double.parseDouble(percentageLiving.getValue().toString()) > 100)
             throw new PercentageNotCorrectException();
     }
