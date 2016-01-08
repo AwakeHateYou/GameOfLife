@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by etere on 18.12.2015.
+ * Главное окно программы. Точка входа.
  */
 public class MainWindow extends JFrame{
     /**

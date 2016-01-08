@@ -4,7 +4,7 @@ import model.GameOfLifeModel;
 import ui.GameField;
 
 /**
- * Created by etere on 20.12.2015.
+ * Контроллер игры.
  */
 public class GameController {
     /**

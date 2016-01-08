@@ -7,69 +7,146 @@ import java.util.Random;
  * Контейнер с игровым полем.
  */
 public class GameOfLifeModel {
+    /**
+     * Ширина
+     */
     private int width;
 
+    /**
+     * Геттер ширины
+     * @return ширина
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Геттер высоты
+     * @return высота
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Высота
+     */
     private int height;
 
+    /**
+     * Сеттер начального количества заполненых ячеек.
+     * @param percentageLiving процент
+     */
     public void setPercentageLiving(double percentageLiving) {
         this.percentageLiving = percentageLiving;
     }
 
+    /**
+     * Сеттер высоты
+     * @param height высота
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     * Сеттер ширины
+     * @param width ширина
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * Сеттер количества клеток, необходимых для жизни.
+     * @param reasonLive количество клеток
+     */
     public void setReasonLive(byte reasonLive) {
         this.reasonLive = reasonLive;
     }
 
+    /**
+     * Сеттер колчисева соседей, меньше которого клетка умирает
+     * @param reasonDieFor количество клеток
+     */
     public void setReasonDieFor(byte reasonDieFor) {
         this.reasonDieFor = reasonDieFor;
     }
-
-
-
-    public byte getReasonDieTo() {
-        return reasonDieTo;
-    }
-
-    public byte getReasonDieFor() {
-        return reasonDieFor;
-    }
-
-    public byte getReasonLive() {
-        return reasonLive;
-    }
-
-    public double getPercentageLiving() {
-        return percentageLiving;
-    }
-    private byte reasonLive = 3;
-    private byte reasonDieFor = 2;
-    private byte reasonDieTo = 3;
+    /**
+     * Сеттер колчисева соседей, больше которого клетка умирает
+     * @param reasonDieTo количество клеток
+     */
     public void setReasonDieTo(byte reasonDieTo) {
         this.reasonDieTo = reasonDieTo;
     }
+    /**
+     * Геттер количества клеток, необходимых для смерти если больше
+     * @return количество клеток
+     */
+    public byte getReasonDieTo() {
+        return reasonDieTo;
+    }
+    /**
+     * Геттер количества клеток, необходимых для смерти если меньше
+     * @return количество клеток
+     */
+    public byte getReasonDieFor() {
+        return reasonDieFor;
+    }
+    /**
+     * Геттер количества клеток, необходимых для жизни
+     * @return количество клеток
+     */
+    public byte getReasonLive() {
+        return reasonLive;
+    }
+    /**
+     * Геттер начального количества заполненых ячеек.
+     */
+    public double getPercentageLiving() {
+        return percentageLiving;
+    }
+
+    /**
+     * Количество клеток, необходимых для жизни
+     */
+    private byte reasonLive = 3;
+    /**
+     * Количество клеток, необходимых для смерти меньше
+     */
+    private byte reasonDieFor = 2;
+    /**
+     * Количество клеток, необходимых для смерти больше
+     */
+    private byte reasonDieTo = 3;
 
 
+    /**
+     * Процент живых клеток в начальной позиции
+     */
     private double percentageLiving = 0;
-
+    /**
+     * Основное поле
+     */
     private byte[] mainField;
+    /**
+     * Поле для действий
+     */
     private byte[] backField;
+    /**
+     * Соседи пограничных элементов
+     */
     private int[] neighborOffsets;
+    /**
+     * Расположение соседей
+     */
     private int[][] neighborXYOffsets;
+
+    /**
+     * Конструктор
+     * @param width ширина
+     * @param height высота
+     */
     public GameOfLifeModel(int width, int height){
         this.width = width;
         this.height = height;
@@ -78,19 +155,40 @@ public class GameOfLifeModel {
     public void clearMainField() {
         Arrays.fill(mainField, (byte) 0);
     }
-    public void setCell(int x, int y, byte c) {
-        mainField[y * width + x] = c;
+
+    /**
+     * Установить значение клетки
+     * @param x абсцисса
+     * @param y ордината
+     * @param value значение
+     */
+    public void setCell(int x, int y, byte value) {
+        mainField[y * width + x] = value;
     }
 
+    /**
+     * Получить значение клетки
+     * @param x абсцисса
+     * @param y ордината
+     * @return значение
+     */
     public byte getCell(int x, int y) {
         return mainField[y * width + x];
     }
+
+    /**
+     * Инициализация контейнеров
+     */
     public void initFieldContainers(){
         mainField = new byte[width * height];
         backField = new byte[width * height];
         neighborOffsets = new int[] { -width - 1, -width, -width + 1, -1, 1, width - 1, width, width + 1 };
         neighborXYOffsets = new int[][] { { -1, -1 }, { 0, -1 }, { 1, -1 }, { -1, 0 }, { 1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 } };
     }
+
+    /**
+     * Заполнение основного поля рандомно, основываясь на заданном проценте
+     */
     public void randomizeByPercent() {
         for (int i = 0; i < (int)((height-1) * (width-1) * percentageLiving/100); i++) {
             Random r = new Random();
@@ -105,7 +203,6 @@ public class GameOfLifeModel {
         }
     }
     public void simulate() {
-        // обрабатываем клетки, не касающиеся краев поля
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
                 int j = y * width + x;
@@ -113,9 +210,6 @@ public class GameOfLifeModel {
                 backField[j] = simulateCell(mainField[j], n);
             }
         }
-
-        // обрабатываем граничные клетки
-        // верхняя и нижняя строки
         for (int x = 0; x < width; x++) {
             int j = width * (height - 1);
             byte n = countBorderNeighbors(x, 0);
@@ -123,7 +217,6 @@ public class GameOfLifeModel {
             n = countBorderNeighbors(x, height - 1);
             backField[x + j] = simulateCell(mainField[x + j], n);
         }
-        // крайние левый и правый столбцы
         for (int y = 1; y < height - 1; y++) {
             int j = width * y;
             byte n = countBorderNeighbors(0, y);
@@ -131,11 +224,16 @@ public class GameOfLifeModel {
             n = countBorderNeighbors(width - 1, y);
             backField[j + width - 1] = simulateCell(mainField[j + width - 1], n);
         }
-
         byte[] t = mainField;
         mainField = backField;
         backField = t;
     }
+
+    /**
+     * Подсчет количества соседей
+     * @param j координата клетки
+     * @return количество соседей
+     */
     private byte countNeighbors(int j) {
         byte n = 0;
         for (int i = 0; i < 8; i++) {

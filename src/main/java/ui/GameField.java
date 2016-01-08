@@ -11,18 +11,35 @@ import java.awt.event.MouseEvent;
  * Отображение игрового поля.
  */
 public class GameField extends JPanel implements Runnable{
-
+    /**
+     * Установить поток исполения
+     * @param simThread поток
+     */
     public void setSimThread(Thread simThread) {
         this.simThread = simThread;
     }
 
+    /**
+     * Получить поток исполенения
+     * @return поток
+     */
     public Thread getSimThread() {
         return simThread;
     }
 
+    /**
+     * Поток выполнения
+     */
     private Thread simThread = null;
+    /**
+     * Модель игры
+     */
     private GameOfLifeModel lifeModel = null;
 
+    /**
+     * Получить таймер обновления
+     * @return таймер обновления
+     */
     public int getUpdateTimer() {
         return updateTimer;
     }
@@ -55,8 +72,8 @@ public class GameField extends JPanel implements Runnable{
 
         // редактор поля
         MouseAdapter ma = new MouseAdapter() {
-            private boolean pressedLeft = false; // нажата левая кнопка мыши
-            private boolean pressedRight = false; // нажата правая кнопка мыши
+            private boolean pressedLeft = false;
+            private boolean pressedRight = false;
 
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -112,10 +129,19 @@ public class GameField extends JPanel implements Runnable{
         addMouseListener(ma);
         addMouseMotionListener(ma);
     }
+
+    /**
+     * Инициалзация игровой модели.
+     * @param model
+     */
     public void initialize(GameOfLifeModel model) {
         this.lifeModel = model;
     }
 
+    /**
+     * Установка таймера обновления поля
+     * @param updateTimer таймер
+     */
     public void setUpdateTimer(int updateTimer) {
         this.updateTimer = updateTimer;
     }
@@ -128,9 +154,6 @@ public class GameField extends JPanel implements Runnable{
                    Thread.sleep(updateTimer);
                 } catch (InterruptedException e) {
                 }
-            // синхронизация используется для того, чтобы метод paintComponent
-            // не выводил на экран
-            // содержимое поля, которое в данный момент меняется
             synchronized (lifeModel) {
                 lifeModel.simulate();
             }
