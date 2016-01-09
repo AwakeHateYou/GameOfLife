@@ -134,7 +134,7 @@ public class GameOfLifeModel {
      */
     private byte[] backField;
     /**
-     * Соседи пограничных элементов
+     * Соседи в одномерном массиве.
      */
     private int[] neighborOffsets;
     /**
