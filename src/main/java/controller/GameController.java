@@ -56,6 +56,10 @@ public class GameController {
             gameField.getSimThread().start();
         }
     }
+
+    /**
+     * Реализация одного шага симуляции.
+     */
     public void oneStep(){
         if(isSimulating()) {
             stopSimulation();

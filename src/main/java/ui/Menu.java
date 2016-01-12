@@ -28,22 +28,30 @@ public class Menu extends JMenu {
     public Menu(GameController gameController){
         this.gameController = gameController;
         initComponents();
-        add(settings);
-        add(start);
-        add(stop);
-        add(aboutProgram);
+        placeComponents();
     }
 
     /**
-     * Размещение этементов меню.
+     * Инициализация элементов меню.
      */
     private void initComponents(){
         setText("Меню");
         settings = new JMenuItem("Настройки");
         start = new JMenuItem("Запустить в автоматическом режиме");
         stop = new JMenuItem("Остановить");
+        stop.setEnabled(false);
         aboutProgram = new JMenuItem("О программе");
         bind();
+    }
+
+    /**
+     * Размещение элементов меню.
+     */
+    private void placeComponents(){
+        add(settings);
+        add(start);
+        add(stop);
+        add(aboutProgram);
     }
 
     /**
@@ -52,7 +60,6 @@ public class Menu extends JMenu {
     private void bind(){
         settings.addActionListener(e -> showSettingsWindow());
         start.addActionListener(e -> startGameAutomatic());
-        stop.setEnabled(false);
         stop.addActionListener(e -> stopGame());
         aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, ABOUT_MESSAGE, "About page", JOptionPane.PLAIN_MESSAGE));
     }
@@ -73,11 +80,19 @@ public class Menu extends JMenu {
         stop.setEnabled(true);
         start.setEnabled(false);
     }
+
+    /**
+     * Остановка игры.
+     */
     private void stopGame(){
         gameController.stopSimulation();
         stop.setEnabled(false);
         start.setEnabled(true);
     }
+
+    /**
+     * Установка значений по умолчанию.
+     */
     public void prepareManualStep(){
         stop.setEnabled(false);
         start.setEnabled(true);
