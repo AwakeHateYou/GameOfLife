@@ -176,6 +176,10 @@ public class GameOfLifeModel {
         return mainField[y * width + x];
     }
 
+    public byte[] getMainField() {
+        return mainField;
+    }
+
     /**
      * Инициализация контейнеров
      */
