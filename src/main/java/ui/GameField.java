@@ -65,12 +65,10 @@ public class GameField extends JPanel implements Runnable{
      */
     private static final Color live = new Color(0xFFFFFF);
     /**
-     * Включен автоматический режим.
+     * Конструктор, редактор поля.
      */
     public GameField() {
         setBackground(Color.BLACK);
-
-        // редактор поля
         MouseAdapter ma = new MouseAdapter() {
             private boolean pressedLeft = false;
             private boolean pressedRight = false;
