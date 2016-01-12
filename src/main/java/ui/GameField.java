@@ -165,9 +165,9 @@ public class GameField extends JPanel implements Runnable{
     @Override
     public Dimension getPreferredSize() {
         if (lifeModel != null) {
-            Insets b = getInsets();
-            return new Dimension((cellSize + cellGap) * lifeModel.getWidth() + cellGap + b.left + b.right,
-                    (cellSize + cellGap) * lifeModel.getHeight() + cellGap + b.top + b.bottom);
+            Insets inset = getInsets();
+            return new Dimension((cellSize + cellGap) * lifeModel.getWidth() + cellGap + inset.left + inset.right,
+                    (cellSize + cellGap) * lifeModel.getHeight() + cellGap + inset.top + inset.bottom);
         } else {
             return new Dimension(100, 100);
         }

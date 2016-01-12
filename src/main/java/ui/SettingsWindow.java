@@ -102,6 +102,7 @@ public class SettingsWindow extends JFrame{
         gameController.getGameOfLifeModel().setReasonDieFor(Byte.parseByte(reasonDieFrom.getValue().toString()));
         gameController.getGameOfLifeModel().setReasonDieTo(Byte.parseByte(reasonDieTo.getValue().toString()));
         gameController.getGameOfLifeModel().initFieldContainers();
+        gameController.getGameField().setPreferredSize(getPreferredSize());
     }
     /**
      * Проверка на положительность.
