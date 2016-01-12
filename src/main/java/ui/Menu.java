@@ -11,7 +11,7 @@ public class Menu extends JMenu {
     /**
      * Пункты меню.
      */
-    JMenuItem settings, aboutProgram, start, auto, manual, step;
+    JMenuItem settings, aboutProgram, start, stop;
     /**
      * Оксно настроек.
      */
@@ -30,8 +30,8 @@ public class Menu extends JMenu {
         initComponents();
         add(settings);
         add(start);
+        add(stop);
         add(aboutProgram);
-        add(step);
     }
 
     /**
@@ -40,13 +40,8 @@ public class Menu extends JMenu {
     private void initComponents(){
         setText("Меню");
         settings = new JMenuItem("Настройки");
-        start = new JMenu("Управление");
-        auto = new JMenuItem("Автоматический режим");
-        manual = new JMenuItem("Ручной режим");
-        step = new JMenuItem("Сделать шаг");
-        step.setVisible(false);
-        start.add(auto);
-        start.add(manual);
+        start = new JMenuItem("Запустить в автоматическом режиме");
+        stop = new JMenuItem("Остановить");
         aboutProgram = new JMenuItem("О программе");
         bind();
     }
@@ -56,9 +51,9 @@ public class Menu extends JMenu {
      */
     private void bind(){
         settings.addActionListener(e -> showSettingsWindow());
-        auto.addActionListener(e -> startGameAutomatic());
-        manual.addActionListener(e -> startGameManual());
-        step.addActionListener(e -> nextStep());
+        start.addActionListener(e -> startGameAutomatic());
+        stop.setEnabled(false);
+        stop.addActionListener(e -> stopGame());
         aboutProgram.addActionListener(e -> new JOptionPane().showMessageDialog(this, ABOUT_MESSAGE, "About page", JOptionPane.PLAIN_MESSAGE));
     }
 
@@ -74,35 +69,19 @@ public class Menu extends JMenu {
      * Запуск игры в автоматическом режиме.
      */
     private void startGameAutomatic(){
-        step.setVisible(false);
-        if(gameController.isSimulating()){
-            gameController.stopSimulation();
-            auto.setText("Автоматический режим");
-        } else {
-            gameController.startSimulation();
-            auto.setText("Остановить");
-        }
+        gameController.startSimulation();
+        stop.setEnabled(true);
+        start.setEnabled(false);
     }
-
-    /**
-     * Запуск игры в ручной режиме.
-     */
-    private void startGameManual(){
-        if(gameController.isSimulating()) {
-            gameController.stopSimulation();
-        }
-        step.setVisible(true);
+    private void stopGame(){
+        gameController.stopSimulation();
+        stop.setEnabled(false);
+        start.setEnabled(true);
     }
-
-    /**
-     * Сделать шаг в симуляции.
-     */
-    private void nextStep(){
-        gameController.getGameOfLifeModel().simulate();
-        gameController.getGameField().repaint();
-
+    public void prepareManualStep(){
+        stop.setEnabled(false);
+        start.setEnabled(true);
     }
-
     /**
      * Информация о программе.
      */

@@ -12,24 +12,18 @@ public class MainWindow extends JFrame{
     /**
      * Панель меню.
      */
-    JMenuBar menuBar;
+    private JMenuBar menuBar;
     /**
      * Управление игрой.
      */
-    GameController gameController;
-
-    /**
-     * Игровое поле.
-     */
-    private GameField gameField;
+    private GameController gameController;
     /**
      * Конструктор.
      */
+    private JButton nextStepButton;
+    private Menu menu;
     public MainWindow() {
         initComponents();
-        menuBar = new JMenuBar();
-        menuBar.add(new Menu(gameController));
-        this.setJMenuBar(menuBar);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Игра в жизнь");
         pack();
@@ -43,6 +37,19 @@ public class MainWindow extends JFrame{
         getContentPane().setLayout(new FlowLayout());
         gameController = new GameController();
         getContentPane().add(gameController.getGameField());
+        menuBar = new JMenuBar();
+        menuBar.add(menu = new Menu(gameController));
+        menuBar.add(nextStepButton = new JButton("Сделать 1 шаг"));
+        nextStepButton.addActionListener(e -> nextStep());
+        this.setJMenuBar(menuBar);
+    }
+
+    /**
+     * Один шаг симуляции.
+     */
+    private void nextStep(){
+        menu.prepareManualStep();
+        gameController.oneStep();
     }
     /**
      * Точка входа в программу.

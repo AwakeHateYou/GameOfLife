@@ -56,6 +56,14 @@ public class GameController {
             gameField.getSimThread().start();
         }
     }
+    public void oneStep(){
+        if(isSimulating()) {
+            stopSimulation();
+        }
+
+        gameOfLifeModel.simulate();
+        gameField.repaint();
+    }
     /**
      * Провека работы симуляции.
      * @return
