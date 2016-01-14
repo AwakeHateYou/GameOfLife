@@ -228,9 +228,9 @@ public class GameOfLifeModel {
             n = countBorderNeighbors(width - 1, y);
             backField[j + width - 1] = simulateCell(mainField[j + width - 1], n);
         }
-        byte[] t = mainField;
+        byte[] swap = mainField;
         mainField = backField;
-        backField = t;
+        backField = swap;
     }
 
     /**
@@ -238,7 +238,7 @@ public class GameOfLifeModel {
      * @param j координата клетки
      * @return количество соседей
      */
-    private byte countNeighbors(int j) {
+    public byte countNeighbors(int j) {
         byte n = 0;
         for (int i = 0; i < 8; i++) {
             n += mainField[j + neighborOffsets[i]];
@@ -251,7 +251,7 @@ public class GameOfLifeModel {
      * @param neighbors кол-во соседей
      * @return новое состояние клетки: 0/1
      */
-    private byte simulateCell(byte self, byte neighbors){
+    public byte simulateCell(byte self, byte neighbors){
         return (byte) (self == 0 ? (neighbors >= reasonLive ? 1 : 0) : ((neighbors < reasonDieFor || neighbors > reasonDieTo) ? 0 : 1));
     }
     //

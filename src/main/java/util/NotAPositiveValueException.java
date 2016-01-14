@@ -9,6 +9,6 @@ public class NotAPositiveValueException extends Exception {
      * Конструктор, выводит сообщение.
      */
     public NotAPositiveValueException(){
-        super("Вы ввели отрицательное значение.");
+        super("Вы неположительное значение.");
     }
 }

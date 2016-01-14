@@ -12,58 +12,112 @@ import java.awt.*;
  * Оксно с настройками приложения.
  */
 public class SettingsWindow extends JFrame{
+    /**
+     * Поля для воода значений.
+     */
     JSpinner width, height, percentageLiving, updateTimer, reasonLive, reasonDieFrom, reasonDieTo;
+    /**
+     * Кнопка подтверждения.
+     */
     JButton accept;
+    /**
+     * Ссылка на контроллер.
+     */
+    GameController gameController;
     public SettingsWindow(GameController gameController){
+        this.gameController = gameController;
         setTitle("Настройки");
         setSize(260, 300);
-        getContentPane().setLayout(new FlowLayout()); //строк и столбцов
-        addComponentsToPane(getContentPane(), gameController);
-        accept.addActionListener(e -> setGameSettings(gameController));
+        getContentPane().setLayout(new FlowLayout());
+        initialize();
+        accept.addActionListener(e -> {
+            setGameSettings(gameController);
+            this.dispose();
+        });
         setResizable(false);
     }
 
     /**
      * Размещение элементов окна настроек.
-     * @param pane панель
-     * @param gameController контроллер
      */
-    private void addComponentsToPane(Container pane, GameController gameController ){
+    private void initialize(){
+
+        initSize();
+        initLivingPane();
+        initLivePane();
+        initDiePaneFrom();
+        initDiePaneTo();
+        initUpdatePane();
+        setDefaultValues();
+        getContentPane().add(accept = new JButton("Принять"));
+    }
+
+    /**
+     * Инициализация панели размера.
+     */
+    private void initSize(){
         JPanel sizePanel = new JPanel();
         sizePanel.add(new JLabel("Размеры поля: "));
         sizePanel.add(width = new JSpinner());
         sizePanel.add(height = new JSpinner());
         height.setValue(gameController.getGameOfLifeModel().getHeight());
+        getContentPane().add(sizePanel);
+    }
+
+    /**
+     * Инициализация панели с процентами живых клеток.
+     */
+    private void initLivingPane(){
         JPanel livingPanel = new JPanel();
         livingPanel.add(new JLabel("Процент живых клеток: "));
         livingPanel.add(percentageLiving = new JSpinner());
+        getContentPane().add(livingPanel);
+    }
+
+    /**
+     * Инициализация панели с интервалом обновления.
+     */
+    private void initUpdatePane(){
         JPanel updatePanel = new JPanel();
         updatePanel.add(new JLabel("Интервал обновления: "));
         updatePanel.add(updateTimer = new JSpinner());
-        JPanel livePannel = new JPanel();
-        livePannel.add(new JLabel("Клеток для жизни: "));
-        livePannel.add(reasonLive = new JSpinner());
-        JPanel diePannelFrom= new JPanel();
-        diePannelFrom.add(new JLabel("Клеток для смерти от : "));
-        diePannelFrom.add(reasonDieFrom = new JSpinner());
-        JPanel diePannelTo = new JPanel();
-        diePannelTo.add(new JLabel("Клеток для смерти до : "));
-        diePannelTo.add(reasonDieTo = new JSpinner());
-        setDefaultValues(gameController);
-        pane.add(sizePanel);
-        pane.add(livingPanel);
-        pane.add(livePannel);
-        pane.add(diePannelFrom);
-        pane.add(diePannelTo);
-        pane.add(updatePanel);
-        pane.add(accept = new JButton("Принять"));
+        getContentPane().add(updatePanel);
+    }
+
+    /**
+     * Инициализация панели с количеством клеток для жизни.
+     */
+    private void initLivePane(){
+        JPanel livePanel = new JPanel();
+        livePanel.add(new JLabel("Клеток для жизни: "));
+        livePanel.add(reasonLive = new JSpinner());
+        getContentPane().add(livePanel);
+    }
+
+    /**
+     * Инициализация панели с количеством клеток для смерти от.
+     */
+    private void initDiePaneFrom(){
+        JPanel diePanelFrom= new JPanel();
+        diePanelFrom.add(new JLabel("Клеток для смерти от : "));
+        diePanelFrom.add(reasonDieFrom = new JSpinner());
+        getContentPane().add(diePanelFrom);
+    }
+
+    /**
+     * Инициализация панели с количеством клеток для до.
+     */
+    private void initDiePaneTo(){
+        JPanel diePanelTo = new JPanel();
+        diePanelTo.add(new JLabel("Клеток для смерти до : "));
+        diePanelTo.add(reasonDieTo = new JSpinner());
+        getContentPane().add(diePanelTo);
     }
 
     /**
      * Установить значения по умолчанию.
-     * @param gameController контроллер
      */
-    private void setDefaultValues(GameController gameController){
+    private void setDefaultValues(){
         width.setValue(gameController.getGameOfLifeModel().getWidth());
         percentageLiving.setValue(gameController.getGameOfLifeModel().getPercentageLiving());
         updateTimer.setValue(gameController.getGameField().getUpdateTimer());
