@@ -7,6 +7,7 @@ import java.awt.*;
 
 /**
  * Главное окно программы. Точка входа.
+ * @autor Терентьев Евгений
  */
 public class MainWindow extends JFrame{
     /**

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Отображение игрового поля.
+ * @autor Терентьев Евгений
  */
 public class GameField extends JPanel implements Runnable{
     /**

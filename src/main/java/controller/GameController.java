@@ -5,6 +5,7 @@ import ui.GameField;
 
 /**
  * Контроллер игры.
+ * @autor Терентьев Евгений
  */
 public class GameController {
     /**

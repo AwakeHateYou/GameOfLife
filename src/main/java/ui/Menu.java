@@ -6,6 +6,7 @@ import javax.swing.*;
 
 /**
  * Меню с выбором режимов и изменением натроек.
+ * @autor Терентьев Евгений
  */
 public class Menu extends JMenu {
     /**

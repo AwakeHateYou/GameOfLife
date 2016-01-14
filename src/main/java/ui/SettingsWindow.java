@@ -10,6 +10,7 @@ import java.awt.*;
 
 /**
  * Оксно с настройками приложения.
+ * @autor Терентьев Евгений
  */
 public class SettingsWindow extends JFrame{
     /**

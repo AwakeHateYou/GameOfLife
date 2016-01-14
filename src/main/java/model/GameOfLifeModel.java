@@ -5,6 +5,7 @@ import java.util.Random;
 
 /**
  * Контейнер с игровым полем.
+ * @autor Терентьев Евгений
  */
 public class GameOfLifeModel {
     /**
