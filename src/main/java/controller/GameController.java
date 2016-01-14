@@ -71,7 +71,7 @@ public class GameController {
     }
     /**
      * Провека работы симуляции.
-     * @return
+     * @return тред
      */
     public boolean isSimulating() {
         return gameField.getSimThread() != null;
